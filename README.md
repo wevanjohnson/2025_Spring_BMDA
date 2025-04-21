@@ -84,7 +84,7 @@ Violations of academic integrity will be treated in accordance with university p
 ### COURSE TOPICS AND OUTLINE (BY WEEK; MAY BE MODIFIED AS NEEDED)
 Introduction: Sequencing data formats and quality control (Week 1)
 
-* 4/23/25:     Course introduction; Essential tools for Data Science 
+* 4/23/25:     Course introduction; Essential tools for Data Science **In Person**
 * 4/23/25:     Data formats (.fasta, .fastq, .sam/.bam); FASTQC and multiQC **(asynchronous lecture)**
 
 Genomics data analysis: Data wrangling and variation analysis (Week 2)
@@ -100,7 +100,7 @@ Genomics data analysis: Linkage and genome-wide association (GWAS) (Week 3)
 Gene expression and proteomics analysis (Week 4)
 
 * 5/12/24:    Quantitative trait analysis 
-* 5/14/24:    Clustering/heatmaps; Dimension reduction
+* 5/14/24:    Clustering/heatmaps; Dimension reduction **In Person**
 
 Gene expression and proteomics analysis; Network analysis (Week 5)
 
@@ -114,7 +114,7 @@ Single cell and epigenetic data analysis (Week 6)
 
 Microbiome data analysis (Week 7)
 
-* 6/2/25:    Diversity analysis; Dimension reduction
+* 6/2/25:   Diversity analysis; Dimension reduction
 * 6/4/25:   Differential abundance; Co-occurrence and functional analyses; Final Projects Due
 
 Imaging and spatial data analysis (Week 8)
