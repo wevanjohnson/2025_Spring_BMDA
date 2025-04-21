@@ -81,51 +81,43 @@ You are expected to have read and follow the guidelines at the university’s ac
 
 Violations of academic integrity will be treated in accordance with university policy, and sanctions for violations may range from no credit for the assignment, to a failing course grade to (for the most severe violations) dismissal from the university.
 
-\newpage
 ### COURSE TOPICS AND OUTLINE (BY WEEK; MAY BE MODIFIED AS NEEDED)
-Sequencing data preprocessing and quality control (Week 1)
+Introduction: Sequencing data formats and quality control (Week 1)
 
-* 4/22/24:     Course introduction; Installation; Introduction to R 
-* 4/24/24:     Essential tools for Data Science: Unix, GitHub, HPC 
+* 4/23/25:     Course introduction; Essential tools for Data Science 
+* 4/23/25:     Data formats (.fasta, .fastq, .sam/.bam); FASTQC and multiQC **(asynchronous lecture)**
 
-Sequencing data preprocessing and quality control (Week 2)
+Genomics data analysis: Data wrangling and variation analysis (Week 2)
 
-* 4/29/24:     Data formats (.fasta, .fastq, .sam/.bam); FASTQC and multiQC 
-* 5/1/24:     Sequence trimming and QC; alignment and wrangling
+* 4/28/25:     Sequence trimming and QC; alignment and wrangling
+* 4/30/25:     Genomic sequence variation analysis **(asynchronous lecture)**
 
-Genomics data analysis: mutation, linkage, and phylogenetics (Week 3)
+Genomics data analysis: Linkage and genome-wide association (GWAS) (Week 3)
 
-* 5/6/24:   Genomic sequence variation analysis; Plots and summaries
-* 5/8/24:    Linkage analysis; Phylogenetic trees
+* 5/5/24:    Linkage analysis; Phylogenetic trees
+* 5/7/24:    Genome-wide association testing
 
-Genome-wide association study (GWAS) analysis (Week 4)
+Gene expression and proteomics analysis (Week 4)
 
-* 5/13/24:    Genome-wide association testing
-* 5/15/24:    Quantitative trait analysis 
+* 5/12/24:    Quantitative trait analysis 
+* 5/14/24:    Clustering/heatmaps; Dimension reduction
 
-Gene expression and proteomics analysis (Week 5)
+Gene expression and proteomics analysis; Network analysis (Week 5)
 
-* 5/20/24:   Clustering/heatmaps; Dimension reduction
-* 5/22/24:   Batch correction; Differential expression analysis 
+* 5/19/24:   Batch correction; Differential expression analysis
+* 5/21/24:   Pathway/network analysis
 
-Network analysis (Week 6)
+Single cell and epigenetic data analysis (Week 6)
 
-* 5/27/24:   Memorial Day (No Class)
-* 5/29/24:   Pathway/network analysis
+* 5/26/25:   Single cell RNA-seq analysis **(Memorial Day; asynchronous lecture)**
+* 5/28/25:   Bump hunting/peak finding; Regulatory network analysis **(asynchronous lecture)**
 
-Single cell and epigenetic data analysis (Week 7)
+Microbiome data analysis (Week 7)
 
-* 6/3/24:   Single cell RNA-seq analysis
-* 6/5/24:   Bump hunting/peak finding; Regulatory network analysis
+* 6/2/25:    Diversity analysis; Dimension reduction
+* 6/4/25:   Differential abundance; Co-occurrence and functional analyses; Final Projects Due
 
-Microbiome data analysis (Week 8)
+Imaging and spatial data analysis (Week 8)
 
-* 6/10/24:    Diversity analysis; Dimension reduction
-* 6/12/24:    Differential abundance; Co-occurrence and functional analyses; Final Projects Due
-
-Imaging and spatial data analysis (????)
-
-* Types of imaging data; Tools for image analysis
-* Pattern recognition and machine learning
-
-
+* 6/9/25: Types of imaging data; Tools for image analysis
+* 6/11/25: Pattern recognition and machine learning
