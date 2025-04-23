@@ -26,11 +26,11 @@ Zoom Meeting ID for all sessions is Meeting ID: 924 8657 8277, with the password
 There will also be available for the students to congregate for each lecture, with a co-intructor present. The room this semester is B619.  
 
 ### FACULTY AND STAFF: 
-W. Evan Johnson, Ph.D.
-Email: w.evan.johnson@rutgers.edu
+W. Evan Johnson, Ph.D.\
+Email: w.evan.johnson@rutgers.edu\
 Cell Phone: (801) 472-6951
 
-Co-instructor: Arthur VanValkenburg
+Co-instructor: Arthur VanValkenburg\
 Email: ajv120@njms.rutgers.edu
 
 ### OFFICE HOURS: 
