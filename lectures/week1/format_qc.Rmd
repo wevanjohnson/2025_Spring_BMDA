@@ -1,0 +1,370 @@
+---
+title: |
+    | Low level Processing and Visualization
+    | of Genome Sequencing Data
+subtitle: "GSND 5340Q, BMDA"
+author: | 
+  | W. Evan Johnson, Ph.D.
+  | Professor, Division of Infectious Disease
+  | Director, Center for Data Science
+  | Rutgers University -- New Jersey Medical School
+date: "`r Sys.Date()`"
+header-includes:
+  - \usepackage{amsmath}
+  - \usepackage{xcolor}
+  - \setbeamercolor{frametitle}{fg=black}
+  - \usepackage{graphicx}
+  - \usebackgroundtemplate{\includegraphics[width=\paperwidth]{figs/RH_template_Page_2.png}}
+  - \addtobeamertemplate{frametitle}{\vspace*{.25in}}{\vspace*{.25in}}
+  - \setbeamerfont{frametitle}{size=\huge}
+  - \usepackage{tikz}
+output: 
+  beamer_presentation
+classoption: aspectratio=169 
+editor_options: 
+  chunk_output_type: console
+tables: true
+---
+
+# Motivating Example: X-linked Disease
+
+## Rare X-linked Disease
+![](qcFigs/proband.png)
+
+## Rare X-linked Disease
+![](qcFigs/family.png)
+
+
+## Rare X-linked Disease
+![](qcFigs/pedigree.png)
+
+
+## Exon Capture Sequencing
+![](qcFigs/hiseq_2000.jpg){width=40%}
+![](qcFigs/illumina4.jpg){width=50%}
+
+## Exome Capture
+\center
+![](qcFigs/exome1.png){height=70%}
+
+## Exome Capture
+\center
+![](qcFigs/exome2.png){height=70%}
+
+## Rare X-linked Disease
+\center
+![](qcFigs/seqPedigree.png){height=70%}
+
+## Rare X-linked Disease
+\center
+![](qcFigs/snpfilter.pdf){height=70%}
+
+## Rare X-linked Disease
+![](qcFigs/cytoband.png)
+
+## Rare X-linked Disease
+![](qcFigs/ogdens_pub.png)
+
+
+## N-terminal acetyltransferase (NAA10)
+\Large
+N-terminal acetyltransferase (NAT):
+
+- Common modification (~80-90% of human proteins)
+- Depletion from cancer cells linked to cell cycle arrest and apoptosis (Starheim, _BMC Proc_ 2009)
+-	NAT genes directly implicated as cause of genetic disease
+- Mutation demonstrated a significantly impaired biochemical activity _in vitro_
+-	NAA10 lethal if knocked out of Drosophila
+
+# Generating Sequencing Data
+
+## Next-Generation Sequencing
+\Large
+- Expensive to purchase (hundreds of thousands $USD)
+- Expensive to operate (e.g. reagents, flow cells)
+- You can sequence your genome at 30X depth for <$1000 USD.
+
+![](qcFigs/seq_machines.png)
+
+## Next-Generation Sequencing
+\center
+![](qcFigs/seq_process.png){height=80%}
+
+
+## Illumina Sequencing
+\Large
+- Most common sequencing technology today
+- Sequences any DNA
+- Sequencing by synthesis method
+- Sequences (reads) are short (<300bp)
+- 2 gigabases - 6 terabases per run
+- Hours to days to complete one run
+
+For more information, you can watch the following: 
+[https://www.youtube.com/watch?v=fCd6B5HRaZ8](https://www.youtube.com/watch?v=fCd6B5HRaZ8)
+
+
+## Illumina Sequencing
+![](qcFigs/illumina_process.png)
+
+## Sequencing Library Generation Workflow
+\Large
+Sequencing Workflow:
+
+- Extract RNA/DNA from sample
+  - If RNA, reverse transcribe to cDNA
+- Size select using gel cut or random shearing
+- PCR amplify DNA if concentration is low
+- Add sequencing adapters
+  - If multiplexing, use barcoded adapters
+- Pool samples, load across flow lanes for sequencing
+- Typically only perform 1, sequencing cores 
+
+## Design Choice: Single End vs Paired End
+\center
+![](qcFigs/seq_design.png){height=70%}
+
+
+## Design Choice: Number of Reads
+\center
+![](qcFigs/seq_design1.png){height=70%}
+[https://genohub.com/recommended-sequencing-coverage-by-application/](https://genohub.com/recommended-sequencing-coverage-by-application/)
+
+
+## Design Choice: Sequencing Depth
+\Large
+Whole Exome
+
+- Less expensive
+- Nearly complete ascertainment of variation in the coding ~1\% of the genome (i.e. exons)
+- Will miss functional variants outside of the coding region
+	
+## Design Choice: Sequencing Depth
+\Large
+Whole Exome
+Low Coverage Whole Genome 
+
+- Less expensive
+- Reasonably good ascertainment of shared variation, but not unique variation
+
+## Design Choice: Sequencing Depth
+\Large
+Whole Exome
+Deep Whole Genome 
+
+- More expensive
+- Capture most of the genetic information
+- Sequence the entire genome of each subject
+
+## 3rd Gen Sequencing: Oxford Nanopore
+\center
+![](qcFigs/nanopore.png){height=70%}
+[https://www.youtube.com/watch?v=GUb1TZvMWsw](https://www.youtube.com/watch?v=GUb1TZvMWsw)
+
+<!--
+## Analysis Pipelines (Broad Institute)
+Queen/dictator of all analyses workflows: Genome Analysis Toolkit (GATK)
+![](qcFigs/pipeline_overview-1.png)
+
+[Link to GATK at the Broad](https://software.broadinstitute.org/gatk/)
+-->
+
+# Sequencing Data Formats
+
+## Biological Data Formats are standardized
+\Large
+- Many different types of data
+- Standard formats exist for many of them
+- Always use/extend standard formats
+- Don’t save data in non standard formats when standards are available - No .xslx!
+- For complete list of formats see: [https://genome.ucsc.edu/FAQ/FAQformat.html](https://genome.ucsc.edu/FAQ/FAQformat.html) 
+
+
+## Sequencing Data Formats
+![](qcFigs/seq_datatypes1.png)
+
+## Sequencing Data Formats
+![](qcFigs/seq_datatypes2.png)
+
+## Sequencing Data Formats
+![](qcFigs/seq_datatypes3.png)
+
+## Data Formats Example
+\center
+![](qcFigs/seq_example1.png){height=90%}
+
+## Data Formats Example
+\center
+![](qcFigs/seq_example2.png){height=90%}
+
+## Data Formats Example
+![](qcFigs/seq_example3.png){height=90%}
+
+## Data Formats Example
+![](qcFigs/seq_example4.png){height=90%}
+
+## Data Formats Example
+![](qcFigs/seq_example5.png){height=90%}
+
+## Data Formats Example
+\center
+![](qcFigs/seq_example6.png){height=80%}
+
+## Data Formats Example
+![](qcFigs/seq_example7.png){height=90%}
+
+## Data Formats Example
+![](qcFigs/seq_example8.png){height=90%}
+
+## Data Formats Example
+![](qcFigs/seq_example9.png){height=90%}
+
+## Data Formats Example
+![](qcFigs/seq_example10.png){height=90%}
+
+## Data Formats Example
+\center
+![](qcFigs/seq_example11.png){height=80%}
+
+
+# Raw Sequencing Data and QC
+
+## History and Evolution of Illumina Data Output
+\Large
+Illumina sequencers have given output in many different formats:
+
+- Illumina .PRB and .INT files
+  - Better access to raw data. 
+  - Base calling algorithms (Bravo and Irizarry, _Biometrics_, 2010)
+  - Mapping algorithms (GNUMAP, NOVO)
+  - Confusing formats; Large data files 		
+- Illumina .FASTQ files
+- Sanger .FASTQ files	
+	
+## Illumina .INT and .PRB
+\center
+![](qcFigs/int_file.png)
+
+\center
+![](qcFigs/prb_file.png)
+
+## .fasta or .fa
+\center
+![](qcFigs/fasta_example.png)
+
+## .fastq or .fq (or .fq.gz)
+\center
+![](qcFigs/illum_fastq1.png)
+
+## .FASTQ Paired End
+![](qcFigs/fastq_paired.png)
+
+## .FASTQ Comparison
+![](qcFigs/fastq_comparison.png){width=100%, height=150%}
+[https://en.wikipedia.org/wiki/Phred_quality_score](https://en.wikipedia.org/wiki/Phred_quality_score)
+
+## Sequence Quality Score (PHRED)
+\center
+![](qcFigs/phred.png){height=65%}
+
+[https://en.wikipedia.org/wiki/Phred_quality_score](https://en.wikipedia.org/wiki/Phred_quality_score)
+
+
+## Sequence Quality Score (PHRED)
+\Large
+Quality scores (Phred)
+
+- Sanger Phred: Range=(0,40), $P = 1-10^{-(ASCII-33)/10}$
+- Solexa: Range= (-5,40),  $P = \frac{10^{(ASCII-64)/10)}}{ 1+10^{(ASCII-64)/10}}$
+- Illumina 1.3: (0,40),  $P = \frac{10^{(ASCII-64)/10)}}{ 1+10^{(ASCII-64)/10}}$
+- Illumina 1.5: Range=(2,40), $P = 1-10^{-(ASCII-64)/10}$
+- Illumina 1.8: Same as Sanger except Range=(0,41)
+
+
+## .FASTQ Comparison
+![](qcFigs/fastq_comp.png)
+
+
+<!--
+## Preprocessing (Broad Institute)
+\center
+![](qcFigs/dznasg7toiq1.png)
+}
+-->
+
+## Quality Control
+\Large
+Need to preprocess the reads:
+
+- Check for quality (FASTQC)
+-	Trim adapter and (Cutadapt, others)
+- Remove duplicate reads, trim  low complexity/quality bases/reads (Prinseq)
+- Complete pipelines: NCBI Toolkit, QC-Chain, PathoQC (pathoscope.sourceforge.net), others
+
+**Note:** Not comprehensive or updated! 
+
+## Read Quality Checks
+\center
+![](qcFigs/flowchart.png){height=70%}
+
+## Read Quality Checks (Outdated!)
+\center
+![](qcFigs/methods.png)
+
+## FASTQC
+\center
+![](qcFigs/fastqc0.png){height=70%}
+
+## FASTQC
+\center
+![](qcFigs/fastqc.png){height=70%}
+
+
+## FastQC Example
+\Large
+Interactive GUI from Amarel Desktop:
+```{bash, eval=F}	
+module spider fastqc
+#module avail fastqc
+module load FastQC
+fastqc
+```
+
+## FastQC Example
+\Large
+Running FastQC from command-line (single file): 
+```{bash, eval=F}	
+fastqc myfastqfile.fq.gz --outdir=output/
+```
+
+Running FastQC from command-line (multiple files): 
+```{bash, eval=F}	
+fastqc *.fq.gz --outdir=output/
+```
+
+## MultiQC Example
+\Large
+You can use [`multiqc`](https://multiqc.info) to combine FastQC results.
+
+```{bash, eval=F}
+pip install multiqc
+cd my_fastqc_dir
+multiqc .
+```
+
+## MultiQC Example
+\center
+![](qcFigs/multiqc1.png){height=70%}
+
+## MultiQC Example
+
+\center
+![](qcFigs/multiqc2.png){height=70%}
+
+
+## Session info
+\tiny
+```{r session info}
+sessionInfo()
+```
+

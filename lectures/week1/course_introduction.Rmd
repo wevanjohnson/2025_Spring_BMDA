@@ -1,0 +1,146 @@
+---
+title: "Course Introduction: GSND 5340Q"
+subtitle: "High Throughput Biomedical Data Analysis (BMDA)"
+author: | 
+  | W. Evan Johnson, Ph.D.
+  | Professor, Division of Infectious Disease
+  | Director, Center for Data Science
+  | Rutgers University -- New Jersey Medical School
+  | w.evan.johnson@rutgers.edu
+date: "`r Sys.Date()`"
+header-includes:
+  - \usepackage{amsmath}
+  - \usepackage{xcolor}
+  - \setbeamercolor{frametitle}{fg=black}
+  - \usepackage{graphicx}
+  - \usebackgroundtemplate{\includegraphics[width=\paperwidth]{figs/RH_template_Page_2.png}}
+  - \addtobeamertemplate{frametitle}{\vspace*{.25in}}{\vspace*{.25in}}
+  - \setbeamerfont{frametitle}{size=\huge}
+  - \usepackage{tikz}
+output: 
+  beamer_presentation
+classoption: aspectratio=169 
+editor_options: 
+  chunk_output_type: console
+tables: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, fig.align="center")
+img_path <- "figs/"
+```
+
+
+##
+![](figs/so_utah_1.png)
+
+## 
+
+![](figs/rutgers_utah.png)
+
+## 
+
+![](figs/so_utah_3.png)
+
+## 
+\center
+![](figs/so_utah_4.png)
+
+
+## Johnson Lab Research
+
+[Here is a link to the Johnson Lab Research Page](https://www.wejlab.org)
+
+## Center for Data Science Updates: Courses
+
+1. GSND 5345Q: Fundamentals of Data Science (Jan 2025)
+  - Command-line coding, literate programming, software development, version control, data wrangling and management, and visualization. 
+2. GSND 5340Q: High Throughput Biomedical Data Analysis (April 2025)
+  - Sequence alignment/QC, GWAS, gene expression and proteomics, epigenetics, metagenomics, and imaging data analysis.
+3. Machine Learning for Biomedical Data (October 2025)
+  - Model training and validation, regression and regularization, unsupervised learning and clustering, dimension reduction and smoothing, supervised learning and classification, neural networks, and Bayesian learning  
+
+## Things you should know about BMDA
+\Large
+* [Click here for the Zoom link](https://rutgers.zoom.us/j/92486578277?pwd=NAG3fMvBlLbrOv6e3zg1xuZjREu9Pm.1)
+* GitHub vs Canvas:
+    + [https://github.com/wevanjohnson/2025_Spring_BMDA](https://github.com/wevanjohnson/2025_Spring_BMDA)
+* [Link to Syllabus](https://github.com/wevanjohnson/2025_Spring_BMDA/blob/main/BiomedicalDataScience_Syllabus.docx)
+* Background experience
+  * Introductory statistics and molecular biology
+* Prerequisites (Fundamentals of Data Science)
+  * Basic Unix scripting
+  * Amarel access and experience (ondemand, submissions)
+  * Basic R programming: tidyverse, ggplot2, R Markdown
+  * Working knowledge of git and GitHub
+
+
+# Introduction to Data Science 
+
+##
+\center
+![](figs/bigdata.png){height="70%"}
+
+Big Data has fundamentally changed how we look at science and business. Along with advances in analytic methods, they are providing unparalleled insights into our physical world and society
+
+## Structured vs. Unstructured data
+\center
+![](figs/data_collage.png){height="70%"}
+
+
+## Structured vs. Unstructured data
+\center
+![](figs/SummarizedExperiment.png){height="70%"}
+
+## Data Science Revolution
+\begin{columns}
+	\begin{column}{0.5\textwidth}
+	\includegraphics[width=2.5in]{figs/ds_venn.png}
+	\end{column}
+	
+	\begin{column}{0.5\textwidth}
+{
+	\begin{itemize}
+	\item Few have all the skills	
+	\item Flexibility in area (business, strategy, health care) and conditions
+	\item Data science makes companies and data better! 
+	\end{itemize}
+}
+	\end{column}
+\end{columns}
+
+##
+\center
+![](figs/modds.png)
+
+## Data Science Process
+\center
+![](figs/dsprocess.png){height="70%"}
+
+## Scientific Cycle for Data Science
+Johnson Lab Approach to Science:
+\center
+![](figs/ds_model.png){height="90%"}
+
+
+# Keeping the "Science" in Data Science
+
+## Domain Knowledge
+
+**Domain knowledge** is knowledge of a specific, specialized discipline or field, in contrast to general (or domain-independent) knowledge. For example, in describing a software engineer may have general knowledge of computer programming as well as domain knowledge about developing programs for a particular industry. People with domain knowledge are often regarded as specialists or experts in their field. (Wikipedia!)
+
+## Analytics Hierarchy
+\center
+![](figs/dataflow1.png){height="70%"}
+
+
+## Analytics Hierarchy
+\center
+![](figs/dataflow2.png){height="70%"}
+
+## Session info
+\tiny
+```{r session info}
+sessionInfo()
+```
+

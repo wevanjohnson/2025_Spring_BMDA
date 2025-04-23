@@ -1,0 +1,543 @@
+---
+title: |
+    | Low level Processing and Visualization
+    | of Genome Sequencing Data
+subtitle: "GSND 5340Q, BMDA"
+author: | 
+  | W. Evan Johnson, Ph.D.
+  | Professor, Division of Infectious Disease
+  | Director, Center for Data Science
+  | Rutgers University -- New Jersey Medical School
+date: "`r Sys.Date()`"
+header-includes:
+  - \usepackage{amsmath}
+  - \usepackage{xcolor}
+  - \setbeamercolor{frametitle}{fg=black}
+  - \usepackage{graphicx}
+  - \usebackgroundtemplate{\includegraphics[width=\paperwidth]{mapFigs/RH_template_Page_2.png}}
+  - \addtobeamertemplate{frametitle}{\vspace*{.25in}}{\vspace*{.25in}}
+  - \setbeamerfont{frametitle}{size=\huge}
+  - \usepackage{tikz}
+output: 
+  beamer_presentation
+classoption: aspectratio=169 
+editor_options: 
+  chunk_output_type: console
+tables: true
+---
+
+
+## Sequencing data alignment
+\Large
+Next-Generation Sequencing (NGS) Data present new challenges:
+
+- Map `reads' to genome
+- Call SNPs and variants from the reads
+- Other Applications: RNA-seq, miRNAs, alternative splicing, ChIP-seq, BS-seq, RNA editing
+
+## Sequencing data alignment
+\Large
+Obstacles:
+
+- Massive data size
+- Repeat regions, rare variants
+	
+**Goal:** Develop an approach to put the puzzle together! 
+
+## Mapping Algorithms
+\large
+Alignment algorithms (not comprehensive -- some of my favorites!)
+
+- BLAST
+- BLAT
+- SOAP2
+- Bowtie2
+- BWA
+- STAR
+- Subread (Rsubread)
+- GNUMAP
+- NovoAlign
+- Many others!!
+
+## Basic Local Alignment Search Tool (BLAST)
+\Large
+BLAST is a "heuristic" method that identifies and combined _High-scoring Segment Pairs (HSPs)_ between two sequences. BLAST searches for high scoring sequence alignments between the query sequence and the existing sequences in the database using an approach that approximates the Smith-Waterman algorithm (described later). 
+
+## Basic Local Alignment Search Tool (BLAST)
+\center 
+![](mapFigs/Neighbor_HSP.jpg){width=70%}
+
+## Basic Local Alignment Search Tool (BLAST)
+\Large
+BLAST can be found at: [https://blast.ncbi.nlm.nih.gov/Blast.cgiBLAST](https://blast.ncbi.nlm.nih.gov/Blast.cgi). Try "BLASTING" the following sequences: 
+
+\scriptsize
+`>NC_045512.2 Severe acute respiratory syndrome coronavirus 2 isolate Wuhan-Hu-1`
+`ATTAAAGGTTTATACCTTCCCAGGTAACAAACCAACCAACTTTCGATCTCTTGTAGATCTGTTCTCTAAACGAACTTTAA`
+
+`>NC_001802.1 Human immunodeficiency virus 1`
+`GGTCTCTCTGGTTAGACCAGATCTGAGCCTGGGAGCTCTCTGGCTAACTAGGGAACCCACTGCTTAAGCCTCAATAAAGC`
+
+`>NR_102810.2 Mycobacterium tuberculosis H37Rv 16S ribosomal RNA`
+`TGTTTGGAGAGTTTGATCCTGGCTCAGGACGAACGCTGGCGGCGTGCTTAACACATGCAAGTCGAACGGA`
+`AAGGTCTCTTCGGAGATACTCGAGTGGCGAACGGGTGAGTAACACGTGGGTGATCTGCCCTGCACTTCGG`
+
+`>NR_041248.1 Bacillus anthracis strain ATCC 14578 16S ribosomal RNA`
+`AGAGCTTGCTCTTATGAAGTTAGCGGCGGACGGGTGAGTAACACGTGGGTAACCTGCCCATAAGACTGGG`
+
+## Creating a Hash Index Table
+\center
+![](mapFigs/hash1.png){height=70%}
+
+## Creating a Hash Index Table
+\center
+![](mapFigs/hash2.png){height=70%}
+
+## Creating a Hash Index Table
+\center
+![](mapFigs/hash3.png){height=70%}
+
+## Creating a Hash Index Table
+\center
+![](mapFigs/hash4.png){height=70%}
+
+## Creating a Hash Index Table
+\center
+![](mapFigs/hash5.png){height=70%}
+
+## Read Lookup
+\center
+![](mapFigs/read1.png){height=70%}
+
+## Read Lookup
+\center
+![](mapFigs/read2.png){height=70%}
+
+## Read Lookup
+\center
+![](mapFigs/read3.png){height=70%}
+
+## Read Lookup
+\center
+![](mapFigs/read4.png){height=70%}
+
+## Read Lookup
+\center
+![](mapFigs/read5.png){height=70%}
+
+## Needleman-Wunsch
+\center
+![](mapFigs/needleman_wunsch1.png){width=60%}
+
+## Needleman-Wunsch
+\center
+![](mapFigs/needleman_wunsch2.png){width=60%}
+
+## Needleman-Wunsch
+\center
+![](mapFigs/needleman_wunsch3.png){width=60%}
+
+## Needleman-Wunsch
+\center
+![](mapFigs/needleman_wunsch4.png){width=60%}
+
+## Prefix Trees
+\center
+![](mapFigs/trie.png){height=80%}
+
+
+## Prefix Trees
+\center
+![](mapFigs/bwatrie.png){height=70%}
+
+
+## Burrows-Wheeler Transformation (BWA, Bowtie)
+\center
+![](mapFigs/bwa.jpg){height=70%}
+
+## Burrows-Wheeler Transformation (BWA, Bowtie)
+\center
+![](mapFigs/bowtie.pdf){height=70%}
+
+
+## Hybrid Methods (BWA-SW, Bowtie2)
+\center
+![](mapFigs/bowtie2flow.jpg){height=70%}
+
+## Read alignments are stored in SAM/BAM/CRAM
+
+\Large
+- BAM and CRAM are compressed SAM files
+- One line per alignment
+- Use `samtools` to view, sort, merge, concatenate, index, get statistics, etc, on alignment files.
+
+## SAM/BAM/CRAM Format -- Header
+
+\Large
+The _header_ lines start with @:
+
+- @HD = header definition
+- @SQ = a sequence in the reference file you used, followed by how long it was and it’s comment (from the reference file)
+- @RG = read groups you assigned while mapping the reads
+- @PG = programs used to obtain this bam, in order
+
+
+## SAM/BAM/CRAM Format -- Body
+\Large
+Each alignment has 11 mandatory fields:
+
+\center
+![](mapFigs/samformat.png)
+
+## SAM/BAM/CRAM Format -- Flag
+![](mapFigs/sam_flag.png)
+
+## SAM/BAM/CRAM Format -- Example
+![](mapFigs/sam_example.png)
+
+## SAM/BAM/CRAM Format 
+\large
+
+- Use `samtools` view to see the content of a SAM/BAM/CRAM file.
+- Always sort and index them
+- Use `samtools view -f` (include) and `-F` (exclude) to filter by flags
+- Use `samtools view -q` to filter by quality. 
+- More on `samtools` later!!
+
+## BWA Example (OnDemand Amarel Desktop)
+
+\large
+```{bash, eval=F}
+# load bwa
+module load bwa
+
+# Index the genome:
+bwa index genomefile.fa 
+
+# Align the reads:
+bwa mem genomefile.fa myfastqfile.fq > bwaalign.sam
+
+# Note: for use with gatk (will learn later) bwa mem 
+# should include a `read group' header as well, e.g.: 
+-R "@RG\tID:group1\tSM:sam1\tPL:illumina\tLB:lib1\tPU:unit1" 
+```
+
+
+## Bowtie2 Example (OnDemand Amarel Desktop)
+
+\large
+```{bash, eval=F}
+# Load Bowtie2
+module load bowtie2
+
+# Index the genome:
+bowtie2-build genomefile.fa output/genomefile	
+
+# Align the reads:
+bowtie2 -x output/genomefile -U myfastqfile.fq \
+	-S bowtiealign.sam
+```
+
+## RSubread Example (OnDemand RStudio)
+\large
+```{r, eval=F}
+# Install the Bioconductor installer
+install.packages("BiocManager")
+
+# Install Rsubread 
+BiocManager::install("Rsubread")
+
+# Index the genome:
+buildindex("genomefile", "genomefile.fa")
+
+# Align the reads:
+align("genomefile", "myfastqfile.fq", 
+      output_file="myfastq.bam", nthreads = 4)
+
+```
+
+
+# Visualization of Aligned Sequencing Data
+
+## Options for data visualization
+\Large
+- UCSC Genome Browser
+- IGB (http://bioviz.org/igb/)
+- IGV (http://www.broadinstitute.org/igv/)
+- SAMtools
+
+
+## IGB Example
+\center
+![](mapFigs/beforeExtContig.png)
+
+## IGV Example
+\center
+![](mapFigs/igv_example.png){height=70%}
+
+
+## SAMtools
+\center
+![](mapFigs/samtools.png)
+
+## SAMtools Example (Amarel Desktop)
+
+```{bash, eval=F}	
+# Load SAMtools
+module load samtools
+
+# Convert SAM file to BAM format:
+samtools view -bS myalignments.sam > myalignments.bam 
+
+# Sort the BAM file:
+samtools sort myalignments.bam -o myalignments.sorted.bam
+
+# Index the BAM file:
+samtools index myalignments.sorted.bam 
+
+# View BAM file in SAMtools:
+samtools tview myalignments.sorted.bam genomefile.fa
+```
+
+<!--
+## SAMtools Example
+My fast and simple script for SAMtools preparation:
+
+```{python, eval=F}
+python prepsam.py genomefile.fa myalignments.sam
+```	
+
+The script can also prepare and merge multiple .sam files (e.g.):
+```{python, eval=F}
+python prepsam.py genomefile.fa sam1.sam sam2.sam
+python prepsam.py genomefile.fa *.sam
+```
+--> 
+
+## SAMtools Example
+\Large
+SAMtools commands:
+
+- The one command to remember: '?'
+- g: go to a specific location (i.e. chrX:152852988 or chrX_149913753:2939235)
+- m,b: mapping quality, base quality
+- n: color by nucleotide
+- '.': dot/base view
+- r: read name
+- q: quit SAMtools
+
+
+## SAM/BAM/CRAM Format -- Conversions
+\large
+```{bash, eval=F}
+# Convert SAM to BAM
+samtools view -bS in.sam > out.bam
+
+# Convert BAM to SAM
+samtools view -ho out.sam in.bam
+
+# Convert BAM to fastq
+samtools bam2fq in.bam > out.fastq
+```
+
+
+## RSamtools
+\large
+`Rsamtools` is a very useful (although somewhat limited) version of Samtools available in R:
+
+```{r, eval=F}
+# Install Rsamtools
+BiocManager::install("Rsamtools")
+
+# Convert SAM to BAM
+asBam(in.sam, out.bam)
+```
+
+You can also index and sort .bam files, as well as extract alignments from a .bam file (very useful!).
+
+# Other Data Formats
+
+## Standard format for keeping tables
+\center
+![](mapFigs/tables.png){height=70%}
+
+## Genomic regions
+\Large
+- A region is defined by three required fields:
+  - sequence name (e.g. chromosome)
+  - start coordinate
+  - end coordinate
+- Define regions of interest: introns, exons, genes, etc.
+- Additional information saved as fields after the first three.
+- Three standard tab-separated formats: BED, GFF, GTF
+No headers
+
+## BED Format
+\large
+Mandatory fields:
+
+1. chrom - Name of the chromosome/scaffold/reference sequence
+2. chromStart - 0-based starting position of the feature on chrom
+3. chromEnd - Ending position of the feature in the chromosome or scaffold.
+
+The chromEnd base is not included in the display of the feature.
+
+For example, the first 100 bases of a chromosome are defined as:
+
+- chromStart=0
+- chromEnd=100
+- span the bases numbered 0-99
+
+## BED Format
+\center
+![](mapFigs/bed_format1.png){height=70%}
+
+## BED Format
+\center
+![](mapFigs/bed_format2.png){height=70%}
+
+
+## BED Format
+\Large
+Optional fields:
+
+4. Name
+5. Score
+6. Strand
+7. 7-12. Display options (thick starts and end, color, blocks…) to control the view on the genome browser
+
+## bedtools
+\Large
+[http://bedtools.readthedocs.io/](http://bedtools.readthedocs.io/)
+
+- sort (sort bed files)
+- Intersect (get intersections of bed files)
+- merge
+- coverage
+- overlap
+- substract
+- ...
+
+## bedtools intersect
+\center
+![](mapFigs/bedtools1.png){height=70%}
+
+## bedtools merge
+\center
+![](mapFigs/bedtools2.png)
+
+## GFF - General features
+
+9 mandatory fields, tab separated:
+
+1. seqname - The name of the sequence. Must be a chromosome or scaffold.
+2. source - The program that generated this feature.
+3. feature - The name of this type of feature (e.g. gene, exon, etc). 
+4. start - The starting position of the feature in the sequence (1-based)
+5. end - The ending position of the feature (inclusive).
+6. score - A score between 0 and 1000. 
+7. strand - Valid entries include "+", "-", or "." (for don't know/don't care).
+8. frame - If the feature is a coding exon, frame should be a number between 0-2 that represents the reading frame of the first base. If the feature is not a coding exon, the value should be ".".
+9. group - All lines with the same group are linked together into a single item
+
+## Gene Information
+\Large
+GTF (Gene Transfer Format, GTF2.2)
+
+- Extension to GFF2, backwards compatible
+- First eight GTF fields are the same as GFF
+- _feature field_ is the same as GFF, has controlled vocabulary:
+  - _gene, transcript, exon, CDS, 5UTR, 3UTR, inter, inter_CNS, and intron_CNS, etc_
+- group field expanded into a list of attributes (i.e. key/value pairs)
+
+The attribute list must begin with the one mandatory attribute:
+  - gene_id value - A globally unique identifier for the genomic source of the sequence
+
+
+## GTF format
+\center
+![](mapFigs/gtf.png){height=70%}
+
+## GFF/GTF encodes relationships
+\center
+![](mapFigs/gtf2.png){height=70%}
+
+
+# SNP and Variant Calling
+
+## Methods for SNP Calling
+\Large
+Methods for SNP calling:
+
+- Mapper/callers: MAQ, SOAPsnp, GNUMAP, Crossbow (Bowtie)
+- Callers: SAMtools (mpileup), GATK (HaplotypeCaller, Mutect2), FreeBayes, others
+
+
+## Inconsistencies Among Aligners
+Low concordance of variant-calling pipelines (O'Rawe, _Genome Med_, 2013)
+
+\center
+![](mapFigs/discordance.png){height=70%}
+
+
+
+## SAMtools Example
+\Large
+Multiple sample SNP calling:
+
+```{bash, eval=F}	
+samtools mpileup -f genomefile.fa \ 
+  myalignments.sorted.bam > myalignments.vcf
+```
+
+<!--
+## GATK Example
+```{bash, eval=F}
+module load gatk
+java -jar CreateSequenceDictionary.jar \
+	R=chrX_5MB.fa O=chrX_5MB.dict
+	
+gatk --java-options "-Xmx8G"  HaplotypeCaller \
+	-R chrX_5MB.fa -I proband_short_bwa.sorted.bam \
+	-O proband_short.vcf
+```
+--> 
+
+## VCF files
+\center
+![](mapFigs/vcf_format.png){height=70%}
+
+
+## Complete Variant Calling Pipeline  (Outdated!)}
+\large
+Our analysis pipeline consisted of the following:
+
+- Align the FASTQ files to genome
+- Convert SAM file to BAM, add read group info
+- Filter the reads based on quality (BAMTools)
+- Samtools to sort and index, and use Picard to mark duplicates
+- GATK calibration, realignment, variant calling (HaplotypeCaller, Mutect2)
+- Filter the called variants (GATK filtersnps and filterindels).
+- Annotation of SNPs (snpEff, condel)
+- Filter by frequency (thousand genomes, TCGA, etc.)
+- Downstream analysis (rare variants, pedigree, pathway level, etc)		
+
+## Downstream Annotation and Analysis (Outdated!)
+\large
+Downstream Annotation Tools (old list):
+
+- snpEff (http://snpeff.sourceforge.net/)
+- Condel (http://bg.upf.edu/condel/home)
+- SIFT http://sift.jcvi.org/
+- Polyphen 2 http://genetics.bwh.harvard.edu/pph2/
+- http://mutationassessor.org/ 
+- Ensembl variant effect predictor (http://www.ensembl.org/info/docs/variation/vep/index.html)
+- Thousand Genomes variant frequency (e.g. 1% threshold) and Exome Sequence Project variant frequency (e.g. 1%).
+
+
+## Session info
+\tiny
+```{r session info}
+sessionInfo()
+```
+
