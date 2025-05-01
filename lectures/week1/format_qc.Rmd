@@ -344,9 +344,10 @@ fastqc *.fq.gz --outdir=output/
 
 ## MultiQC Example
 \Large
-You can use [`multiqc`](https://multiqc.info) to combine FastQC results.
+You can use [`multiqc`](https://multiqc.info) to combine FastQC results. On Amarel Desktop:
 
 ```{bash, eval=F}
+module load miniconda
 pip install multiqc
 cd my_fastqc_dir
 multiqc .
