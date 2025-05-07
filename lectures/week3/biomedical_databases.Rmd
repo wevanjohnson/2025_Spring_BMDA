@@ -8,10 +8,17 @@ author: |
   | Rutgers University -- New Jersey Medical School
 date: "`r Sys.Date()`"
 header-includes:
-   - \usepackage{amsmath}
+  - \usepackage{amsmath}
+  - \usepackage{xcolor}
+  - \setbeamercolor{frametitle}{fg=black}
+  - \usepackage{graphicx}
+  - \usebackgroundtemplate{\includegraphics[width=\paperwidth]{varFigs/RH_template_Page_2.png}}
+  - \addtobeamertemplate{frametitle}{\vspace*{.25in}}{\vspace*{.25in}}
+  - \setbeamerfont{frametitle}{size=\huge}
+  - \usepackage{tikz}
 output: 
-  beamer_presentation:
-    theme: "CambridgeUS"
+  beamer_presentation
+classoption: aspectratio=169 
 editor_options: 
   chunk_output_type: console
 tables: true
@@ -29,7 +36,8 @@ tables: true
 Big Data has fundamentally changed how we look at science and business. Along with advances in analytic methods, they are providing unparalleled insights into our physical world and society
 
 ## Structured vs. Unstructured data
-\includegraphics[width=4.75in]{dbFigs/data_collage.png}
+\center
+\includegraphics[width=4in]{dbFigs/data_collage.png}
 
 ## Biology Is A Data Science
 
@@ -114,7 +122,7 @@ Search tools:
 	
 	\begin{column}{0.65\textwidth}
 	\center
-	\includegraphics[width=3in]{dbFigs/filesystem.png}
+	\includegraphics[width=2.5in]{dbFigs/filesystem.png}
 	\end{column}
 \end{columns}
 
@@ -123,7 +131,7 @@ Search tools:
 \begin{columns}
 	\begin{column}{0.5\textwidth}
 	\center
-	\includegraphics[width=2in]{dbFigs/organize1.png}
+	\includegraphics[width=1.75in]{dbFigs/organize1.png}
 	\end{column}
 	
 	\begin{column}{0.5\textwidth}
@@ -134,35 +142,47 @@ Search tools:
 
 
 ## Organization and Types of Databases
-
+\Large
 Every database has tools that: Store, Extract, Modify
-
-Flat file databases (flat DBMS)
+\vskip .2in
+\begin{columns}
+	\begin{column}{0.5\textwidth}
+{\bf Flat file databases (flat DBMS)}
   
 - Simple, restrictive, table
 
-Hierarchical databases
+{\bf Hierarchical databases}
   
 - Simple, restrictive, tables
 
-Relational databases (RDBMS)
+{\bf Relational databases (RDBMS)}
 
 - Complex, versatile, tables
+	\end{column}
+	
+	\begin{column}{0.5\textwidth}
 
-Object-oriented databases (ODBMS)
+{\bf Object-oriented databases (ODBMS)}
 
 - Data warehouses and distributed databases
 
-Unstructured databases (object store DBs)
+{\bf Unstructured databases (object store DBs)}
+	\end{column}
+\end{columns}
+
+
 
 ## Where do the data come from?
-![](dbFigs/data_cartoon.png)
+\center 
+![](dbFigs/data_cartoon.png){height=80%}
 
 ## Using biomedical data
-![](dbFigs/dataflow1.png){height=88%}
+\center 
+![](dbFigs/dataflow1.png){height=70%}
 
 ## Using biomedical data
-![](dbFigs/dataflow2.png){height=85%}
+\center 
+![](dbFigs/dataflow2.png){height=70%}
 
 ## Types of Biological Data
 
@@ -209,7 +229,7 @@ National Center for Biotechnology Information (NCBI):
 
 ## International Sequence Database Collaboration 
 \center
-![](dbFigs/international_seq_db.png){width=60%}
+![](dbFigs/international_seq_db.png){width=40%}
 
 - [International Sequence Database Collaboration](http://www.insdc.org/)
 - [National Centre for Biotechnology Information (NCBI)](https://www.ncbi.nlm.nih.gov/)
@@ -237,7 +257,7 @@ National Center for Biotechnology Information (NCBI):
 - arranged in a hierarchical manner called the MeSH Tree Structures
 updated annually
 
-![](dbFigs/pubmed.png)
+![](dbFigs/pubmed.png){height=90%}
 
 
 ## Google Scholar
@@ -329,11 +349,12 @@ For other well studied model organisms, you can often find collections of resour
 \begin{columns}
 	\begin{column}{0.65\textwidth}
 \center
-	\includegraphics[width=3in]{dbFigs/rnacentral.png}
+	\includegraphics[width=2.5in]{dbFigs/rnacentral.png}
 	\end{column}
 	
 	\begin{column}{0.35\textwidth}
 	{\begin{itemize}
+	\Large
 	  \item Developed by EBI and Wellcome Trust
 	  \item Integration of many other up-to-date RNA resources and tools 
 	 
@@ -345,7 +366,7 @@ For other well studied model organisms, you can often find collections of resour
 
 [Click here for an overview of core functions](https://www.youtube.com/watch?v=oqUBhQPPzZs)
 
-## Existing datasets -- sequencing data (SRA or GEO)
+# Existing datasets -- sequencing data (SRA or GEO)
 
 ## dbGaP: genotype-phenotype interactions in humans
 
@@ -354,8 +375,8 @@ For other well studied model organisms, you can often find collections of resour
 - Applications required to be granted access to datasets
 - Any data with sensitive health information must be stored, handled, and interacted with according to appropriate regulations
 
+## SRA - Sequencing Read Archive
 \Large
-**SRA - Sequencing Read Archive** 
 
 - Raw sequencing data and alignment info
 - Metagenomics, environmental samples, biomedical sequencing
@@ -462,8 +483,7 @@ Save as a file and use `sbatch` to submit
 ## GEOquery example 
 
 ```{r, eval=F}
-# Load the geoquery library
-# BiocManager::install("GEOquery")
+# Load the geoquery library: BiocManager::install("GEOquery")
 library(GEOquery)
 
 # Search for a dataset in GEO
@@ -495,7 +515,7 @@ https://www.gtexportal.org/home/
 ## DNA regulatory elements
 ENCODE contains a host of information about DNA regulatory elements
 \center 
-![](dbFigs/encode.png){height=70%}
+![](dbFigs/encode.png){height=50%}
 https://www.encodeproject.org
 
 # Protein databases
@@ -612,7 +632,7 @@ Protein sequence database: https://www.ncbi.nlm.nih.gov/protein/
 
 ## RefSeq Annotations
 \center
-![](dbFigs/refseq.png){height=90%}
+![](dbFigs/refseq.png){height=70%}
 
 
 ## Avoid using outdated or abandoned tools / databases

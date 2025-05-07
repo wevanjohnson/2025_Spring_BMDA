@@ -8,10 +8,17 @@ author: |
   | Rutgers University -- New Jersey Medical School
 date: "`r Sys.Date()`"
 header-includes:
-   - \usepackage{amsmath}
+  - \usepackage{amsmath}
+  - \usepackage{xcolor}
+  - \setbeamercolor{frametitle}{fg=black}
+  - \usepackage{graphicx}
+  - \usebackgroundtemplate{\includegraphics[width=\paperwidth]{varFigs/RH_template_Page_2.png}}
+  - \addtobeamertemplate{frametitle}{\vspace*{.25in}}{\vspace*{.25in}}
+  - \setbeamerfont{frametitle}{size=\huge}
+  - \usepackage{tikz}
 output: 
-  beamer_presentation:
-    theme: "CambridgeUS"
+  beamer_presentation
+classoption: aspectratio=169 
 editor_options: 
   chunk_output_type: console
 tables: true
@@ -44,8 +51,8 @@ tables: true
 
 
 ## DNA Sequence Alignment Example
-
-![](gwasFigs/sequence_align.png)
+\center
+![](gwasFigs/sequence_align.png){height=70%}
 
 
 ## Scoring/Substitution Matrices
@@ -55,7 +62,7 @@ tables: true
 - Higher score = better alignment
 - Implicitly represent evolutionary patterns
 
-![](gwasFigs/scoring.png)
+![](gwasFigs/scoring.png){height=70%}
 
 ## Sequence Alignment Algorithms
 
@@ -76,6 +83,7 @@ tables: true
 ![](gwasFigs/multiple_align.png)
 
 ## Methods for Multiple Sequence Aligment (MSA)
+\Large
 1. **Progressive Alignment Algorithms**:
    - *ClustalW*: A widely used progressive alignment tool with a guide tree strategy.
    - *Clustal Omega*: An enhanced version of ClustalW with improved speed and accuracy.
@@ -84,16 +92,18 @@ tables: true
    - *MAFFT (Multiple Alignment using Fast Fourier Transform)*: Uses iterative refinement with consistency scores.
    - *MUSCLE (Multiple Sequence Comparison by Log-Expectation)*: Utilizes progressive alignment followed by iterative refinement.
 
+## Methods for MSA (Continued)
+\Large
 3. **Hidden Markov Models (HMMs)**:
    - *HMMER*: Based on HMMs, used for alignment and homology detection.
    - *SAM (Sequence Alignment and Modeling System)*: Combines HMMs with profiles for database searches.
-
-## Methods for MSA (Continued)
 
 4. **Probabilistic Alignment Methods**:
    - *ProbCons*: Generates a probabilistic alignment using a Bayesian framework.
    - *PRANK*: Considers sequence and alignment uncertainty in alignment generation.
 
+## Methods for MSA (Continued)
+\Large
 5. **Structure-Based Alignment**:
    - *MUSTANG (Multiple Structural Alignment by Secondary Structures)*: Aligns based on protein structures considering sequence and structure.
    - *DALI (Distance Alignment Matrix Method)*: Aligns sequences based on structural similarity.
@@ -135,7 +145,8 @@ Download the following TB genomes:
 ![](gwasFigs/rnaseq_assemble.png)
 
 ## Example: DNA Binding Site Discovery
-![](gwasFigs/binding_assemble.png)
+\center
+![](gwasFigs/binding_assemble.png){height=70%}
 
 
 <!--
@@ -156,8 +167,8 @@ Download the following TB genomes:
   - Re-sequence: refine an existing reference sequence
 
 ## De novo assembly
-
-![](gwasFigs/denovo.png)
+\center
+![](gwasFigs/denovo.png){height=70%}
 
 
 ## De novo assembly: graph-based
@@ -189,8 +200,8 @@ Download the following TB genomes:
 
 
 ## Reference guided genome assembly
-
-![](gwasFigs/reference_assemble.png)
+\center
+![](gwasFigs/reference_assemble.png){height=70%}
 
 ## Whole Exome Sequencing
 
@@ -218,10 +229,12 @@ Download the following TB genomes:
   - Large: >50 bp, copy number variations, duplications, deletions, translocations, inversions
 
 ## Genomic Variants
-![](gwasFigs/variant_defs.png)
+\center
+![](gwasFigs/variant_defs.png){height=70%}
 
 ## Point mutations
-![](gwasFigs/point_mut.png)
+\center
+![](gwasFigs/point_mut.png){height=70%}
 
 ## Single Nucleotide Polymorphisms (SNPs)
 
@@ -250,7 +263,7 @@ Download the following TB genomes:
 ## Structural variation
 
 \center
-![](gwasFigs/struc_vars.png){height=80%}
+![](gwasFigs/struc_vars.png){height=70%}
 
 ## Genotyping
 
@@ -287,7 +300,7 @@ Every human has on average:
   - i.e. one is variant, one is reference/different variant
 
 \center
-![](gwasFigs/human_genomic.png){width=70%}
+![](gwasFigs/human_genomic.png){width=50%}
 https://www.genome.gov/genetics-glossary/heterozygous
 
 ## Human Genomic Terminology
@@ -323,7 +336,8 @@ For coding (exonic) variants:
 - Duplications, somatic mutations may cause 3 or more alleles to be observed
 
 ## SNP and indel density is non-random 
-![](gwasFigs/snp_density.png)
+\center
+![](gwasFigs/snp_density.png){height=80%}
 
 ## Variants Larger Than A Read
 
@@ -349,7 +363,8 @@ Non-random: SV ‘hotspots’
   - i.e. 2 SNPs are in LD with each other
 
 ## Haplotyping
-![](gwasFigs/haplotype.png)
+\center
+![](gwasFigs/haplotype.png){height=70%}
 
 ## Methods for SNP Calling
 
@@ -395,7 +410,7 @@ Non-random: SV ‘hotspots’
 Low concordance of variant-calling pipelines (O'Rawe, _Genome Med_, 2013)
 
 \center
-![](gwasFigs/discordance.png){height=80%}
+![](gwasFigs/discordance.png){height=50%}
 
 
 
@@ -455,8 +470,8 @@ Associated SNPs have:
 - **Risk allele**: allele associated with increased or decreased probability of having a disease
 
 ## Genome Wide Association Studies (GWAS)
-
-![](gwasFigs/gwas.png)
+\center
+![](gwasFigs/gwas.png){height=70%}
 
 
 
@@ -470,7 +485,7 @@ Associated SNPs have:
 - Peaks represent regions where genetic variants are significantly associated with the trait or disease.
 
 \center
-![](gwasFigs/manhattan.png){width=80%}
+![](gwasFigs/manhattan.png){width=60%}
 
 ## Genome-Wide Significance Threshold
 
