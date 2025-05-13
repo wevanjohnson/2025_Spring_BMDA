@@ -1,0 +1,92 @@
+---
+title: "Homework 1: SNP and GWAS Analysis"
+author:   100 Points Total
+date: Due May 21, 2025
+output: pdf_document
+---
+
+Now it’s time to apply what you’ve learned during the first three weeks of class—and to deepen your understanding! In this assignment, you will perform a complete Genome-Wide Association Study (GWAS) using the Ogden’s Syndrome dataset.
+
+Please save all your code for each part of the assignment. Your instructor may request it, and it may also be used for awarding partial credit if needed. We strongly recommend completing the assignment in an RMarkdown document to ensure your work is well-documented and reproducible.
+
+Submit your completed assignment via the designated homework submission site on Canvas.
+
+## DNA-sequencing and GWAS analysis
+To access the data for Homework 2, please download the following (just normal point and click, not need to curl or wget): \href{https://www.dropbox.com/scl/fi/ezilkcxjjhlcft20965fz/ogdens_data.tar?rlkey=jshzg6d0h7e7q58hucue2h0up&st=pa8xh3jo&dl=0}{https://www.dropbox.com/scl/fi/ezilkcxjjhlcft20965fz/ogdens\_data.tar?rlkey= jshzg6d0h7e7q58hucue2h0up\&st=pa8xh3jo\&dl=0}
+\begin{enumerate}
+
+  \item What command did you use to extract this tarball for this repository: 
+  \begin{enumerate}
+    \item unzip ogdens\_data.tar
+    \item tar -czf ogdens\_data.tar
+    \item tar -xvf ogdens\_data.tar
+    \item tar --remove-files ogdens\_data.tar
+  \end{enumerate}
+
+  \item Use an appropriate Unix command to to merge the `proband\_29.fq.gz' and the `proband\_short.fg.gz' files as these are from the same sample. The following can be used:  
+ \begin{enumerate}
+    \item cat proband\_29.fq.gz proband\_short.fq.gz > proband\_merged.fq.gz
+    \item cat proband\_29.fq.gz > proband\_short.fq.gz > proband\_merged.fq.gz
+    \item merge proband\_29.fq.gz proband\_short.fq.gz > proband\_merged.fq.gz
+    \item gzip proband\_29.fq.gz proband\_short.fq.gz > proband\_merged.fq.gz
+  \end{enumerate}
+
+  \item Use FASTQC and MultiQC to summarize the FASTQ files for these datasets. Should we be concerned about the quality of these data? Why or why not?
+  \begin{enumerate}
+    \item No—overall quality scores are strong, and the minor issues found are typical of short-read sequencing and can be ignored.
+    \item Yes—there are multiple indicators of potential problems, including duplication, GC bias, and adapter contamination.
+    \item No—FASTQC and MultiQC do not typically reveal serious quality concerns unless there is complete sequencing failure.
+    \item Yes—all samples failed the sequence quality histogram and length distribution checks.
+  \end{enumerate}
+
+\item For which diagnostics do these data fail, based on the MultiQC summary of the FASTQC results?
+  \begin{enumerate}
+    \item Only per-base sequence quality and sequence length distribution failed across all samples.
+    \item The samples failed in having uniformly high quality and balanced GC content.
+    \item Several samples had high duplicate read levels, unbalanced GC content, one had poor per-tile sequence quality, and one showed excessive adapter contamination.     \item There were no actual failed diagnostics—MultiQC flagged warnings, not failures. 
+  \end{enumerate}
+
+  \item Align genome sequences from these human sequencing experiment using `bwa' to the `chrX\_5MB.fa' reference. Which is the appropriate unix command for this purpose?
+  \begin{enumerate}
+    \item bwa mem ../genome/chrX\_5MB.fa proband\_merged.fq.gz > proband.sam
+    \item bwa aln ../genome/chrX\_5MB.fa proband\_merged.fq.gz > proband.sam
+    \item bwa mem proband\_merged.fq.gz ../genome/chrX\_5MB.fa > proband.sam
+    \item bwa mem -i ../genome/chrX\_5MB.fa proband\_merged.fq.gz -o proband.sam
+  \end{enumerate}
+
+  \item Process the reads through `samtools mpileup` to generate a .vcf file. How many lines are in your final .vcf file for the proband?
+ \begin{enumerate}
+    \item 1303522 
+    \item 320145
+    \item 57890
+    \item 2049831
+  \end{enumerate}
+
+  \item Complete this process using GATK to generate an alternative .vcf file. How do the .vcf files compare? Which of the following is NOT true?
+  \begin{enumerate}
+    \item GATK and pileup agree on a small number of high-confidence variants.
+    \item Pileup reports many more candidate variants than GATK due to fewer filters.
+    \item GATK uses additional quality metrics and statistical models to reduce false positives.
+    \item GATK and pileup produce nearly identical sets of variant calls across the genome.
+  \end{enumerate}
+
+  \item Generate a Manhattan plot, comparing the proband sequences with the sequences from the brother and uncle. List the SNPs/regions of interest. Upload a .png or .jpeg of your Manhattan plot here. 
+
+\item What is the genotype of the reference and the proband at position chrX\_149913753:2939281? This is the disease-causing SNP.
+  \begin{enumerate}
+    \item Reference = A, Proband = G
+    \item Reference = A, Proband = A
+    \item Reference = G, Proband = A
+    \item Reference = G, Proband = G
+  \end{enumerate}
+
+\item Are the mother and grandmother heterozygous at position chrX\_149913753:2939281? What is their genotype at this location, and why is this important? 
+  \begin{enumerate}
+    \item Yes, both are heterozygous (A/G). This is important because the mutation is X-linked and recessive. Female carriers (mother and grandmother) can pass the mutation to male offspring, who are affected if they inherit the variant.
+    \item No, both are homozygous for the reference allele (A/A). This would suggest a de novo mutation in the proband, which is inconsistent with inheritance patterns.
+    \item Yes, both are homozygous for the alternate allele (G/G). This would likely mean they are also affected, inconsistent with X-linked recessive inheritance in females.
+    \item No, the mother is heterozygous (A/G) and the grandmother is homozygous reference (A/A), which would break the expected pattern of inheritance.
+  \end{enumerate}
+
+\end{enumerate}
+
