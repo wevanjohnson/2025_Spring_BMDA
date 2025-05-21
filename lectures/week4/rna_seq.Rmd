@@ -402,23 +402,23 @@ group <- meta_data$Disease
 ## Visualization and dimension reduction
 ```{r}
 ## Make SummarizedExperiment
-sce_hivtb <- SummarizedExperiment(assays=list(counts=counts),
+se_hivtb <- SummarizedExperiment(assays=list(counts=counts),
                      colData = meta_data)
 
 ## Make log counts, counts per million (cpm), logcpm
-sce_hivtb <- mkAssay(sce_hivtb, log = TRUE, 
+se_hivtb <- mkAssay(se_hivtb, log = TRUE, 
                      counts_to_CPM = TRUE)
-assays(sce_hivtb)
+assays(se_hivtb)
 ```
 
 ## Principal Components Analysis (PCA)
 
 ```{r, eval=F}
 set.seed(1)
-pca_out <- prcomp(t(assay(sce_hivtb,"log_counts_cpm")))
+pca_out <- prcomp(t(assay(se_hivtb,"log_counts_cpm")))
   
 pca_plot <- as.data.frame(pca_out$x)
-pca_plot$Disease <- as.factor(sce_hivtb$Disease)
+pca_plot$Disease <- as.factor(se_hivtb$Disease)
 
 g <- pca_plot %>% ggplot(aes(x=PC1, y=PC2, color=Disease)) +
   geom_point(size=1.5) + xlab("PCA1") + ylab("PCA2") +
@@ -432,10 +432,10 @@ plot(g)
 
 ```{r, echo=F, fig.height=4, fig.align='center'}
 set.seed(1)
-pca_out <- prcomp(t(assay(sce_hivtb,"log_counts_cpm")))
+pca_out <- prcomp(t(assay(se_hivtb,"log_counts_cpm")))
   
 pca_plot <- as.data.frame(pca_out$x)
-pca_plot$Disease <- as.factor(sce_hivtb$Disease)
+pca_plot$Disease <- as.factor(se_hivtb$Disease)
 
 g <- pca_plot %>% ggplot(aes(x=PC1, y=PC2, color=Disease)) +
   geom_point(size=1.5) + xlab("PCA1") + ylab("PCA2") +
@@ -455,10 +455,10 @@ https://pair-code.github.io/understanding-umap/
 
 ```{r, eval=F}
 set.seed(1)
-umap_out <- umap(t(assay(sce_hivtb,"log_counts_cpm")))
+umap_out <- umap(t(assay(se_hivtb,"log_counts_cpm")))
 
 umap_plot <- as.data.frame(umap_out$layout)
-umap_plot$Disease <- as.factor(sce_hivtb$Disease)
+umap_plot$Disease <- as.factor(se_hivtb$Disease)
 
 g <- umap_plot %>% ggplot(aes(x=V1, y=V2, color=Disease)) +
   geom_point(size=1.5) + xlab("UMAP1") + ylab("UMAP2") +
@@ -473,10 +473,10 @@ plot(g)
 
 ```{r, echo=F,fig.height=4, fig.align='center'}
 set.seed(1)
-umap_out <- umap(t(assay(sce_hivtb,"log_counts_cpm")))
+umap_out <- umap(t(assay(se_hivtb,"log_counts_cpm")))
 
 umap_plot <- as.data.frame(umap_out$layout)
-umap_plot$Disease <- as.factor(sce_hivtb$Disease)
+umap_plot$Disease <- as.factor(se_hivtb$Disease)
 
 g <- umap_plot %>% ggplot(aes(x=V1, y=V2, color=Disease)) +
   geom_point(size=1.5) + xlab("UMAP1") + ylab("UMAP2") +
@@ -591,11 +591,11 @@ res[1:10,]
 ## Heatmap of DEGs
 ```{r, eval=F}
 # Make a Heatmap of DEGs
-mat = as.matrix(assay(sce_hivtb,"log_counts_cpm")
+mat = as.matrix(assay(se_hivtb,"log_counts_cpm")
                 )[order(results(dds)[,6])[1:100],] 
                 # Using first 1000 genes to simplify
 mat = t(scale(t(mat)))
-df=data.frame(Disease=colData(sce_hivtb)$Disease) 
+df=data.frame(Disease=colData(se_hivtb)$Disease) 
 ha = HeatmapAnnotation(df = df, 
                        col = list(Disease=c(
                          "tb_hiv"="Red",
@@ -609,11 +609,11 @@ Heatmap(mat,show_row_names=F, show_column_names = F,
 
 ```{r, echo=F, out.height='80%',fig.align='center'}
 # Make a Heatmap of DEGs
-mat = as.matrix(assay(sce_hivtb,"log_counts_cpm")
+mat = as.matrix(assay(se_hivtb,"log_counts_cpm")
                 )[order(results(dds)[,6])[1:100],] 
                 # Using first 1000 genes to simplify
 mat = t(scale(t(mat)))
-df=data.frame(Disease=colData(sce_hivtb)$Disease) 
+df=data.frame(Disease=colData(se_hivtb)$Disease) 
 ha = HeatmapAnnotation(df = df, 
                        col = list(Disease=c(
                          "tb_hiv"="Red",
@@ -678,10 +678,10 @@ The TBSignatureProfiler was developed in the Johnson Lab in 2021 to profile new 
 
 ## TBSignatureProfiler Analysis
 ```{r, message=FALSE, results='hide'}
-sce_hivtb_2 <- sce_hivtb[,
-      colData(sce_hivtb)$Disease != "tb_hiv_art"]
+se_hivtb_2 <- se_hivtb[,
+      colData(se_hivtb)$Disease != "tb_hiv_art"]
 TBsigs <- TBsignatures[-12] 
-ssgsea_res <- runTBsigProfiler(sce_hivtb_2, 
+ssgsea_res <- runTBsigProfiler(se_hivtb_2, 
                   useAssay = "log_counts_cpm",
                   signatures = TBsigs,
                   algorithm = "ssGSEA",

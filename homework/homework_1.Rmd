@@ -54,7 +54,7 @@ To access the data for Homework 2, please download the following (just normal po
     \item bwa mem -i ../genome/chrX\_5MB.fa proband\_merged.fq.gz -o proband.sam
   \end{enumerate}
 
-  \item Process the reads through `samtools mpileup` to generate a .vcf file. How many lines are in your final .vcf file for the proband?
+  \item Process the reads through `samtools mpileup` to generate a .pileup file. How many lines are in your final .pileup file for the proband?
  \begin{enumerate}
     \item 1303522 
     \item 320145
