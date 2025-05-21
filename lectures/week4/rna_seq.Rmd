@@ -450,14 +450,13 @@ plot(g)
 ## Principal Components Analysis (PCA)
 
 ```{r, echo=F, out.height='70%', fig.align='center'}
-set.seed(1)
 pca_out <- prcomp(t(assay(se_hivtb,"log_counts_cpm")))
   
 pca_plot <- as.data.frame(pca_out$x)
 pca_plot$Disease <- as.factor(se_hivtb$Disease)
 
-g <- pca_plot %>% ggplot(aes(x=PC1, y=PC2, color=Disease)) +
-  geom_point(size=1.5) + xlab("PCA1") + ylab("PCA2") +
+g <- pca_plot %>% ggplot(aes(x=PC1, y=PC5, color=Disease)) +
+  geom_point(size=1.5) + xlab("PCA1") + ylab("PCA5") +
   theme(plot.title = element_text(hjust = 0.5)) +
   ggtitle("PCA Plot")
 
@@ -585,7 +584,7 @@ dds <- DESeqDataSetFromMatrix(countData = counts,
                               colData=meta_data, 
                               design=~Disease)
 #Gene Filtering
-dds<-dds[rowSums(counts(dds))>1,] 
+dds<-dds[rowSums(counts(dds))>100,] 
 ```
 
 ## DESeq2 Example
@@ -600,7 +599,7 @@ dds<-DESeq(dds)
 \scriptsize
 ```{r}
 res <- results(dds)[order(results(dds)[,6]),]
-res[1:10,]
+res[1:25,]
 ``` 
 
 ## Heatmap of DEGs
@@ -608,8 +607,8 @@ res[1:10,]
 # Make a Heatmap of DEGs
 mat = as.matrix(assay(se_hivtb,"log_counts_cpm")
                 )[order(results(dds)[,6])[1:100],] 
-                # Using first 1000 genes to simplify
-mat = t(scale(t(mat)))
+                # Using first 100 genes to simplify
+mat = t(scale(t(mat))) ## scale gene expression
 df=data.frame(Disease=colData(se_hivtb)$Disease) 
 ha = HeatmapAnnotation(df = df, 
                        col = list(Disease=c(
