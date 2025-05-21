@@ -26,7 +26,7 @@ tables: true
 
 
 ## Installing R Packages: 
-
+\Large
 Install the following tools: `Rsubread`, `Rsamtools`,  `edgeR`, `DESeq2`, `sva` `SummarizedExperiment`, `ComplexHeatmap`, `umap`, and the `TBSignatureProfiler`. We will also need help from the `tidyverse.`
 
 ```{r eval=F}
@@ -38,7 +38,7 @@ BiocManager::install(c("Rsubread","Rsamtools","tidyverse",
 ```
 
 ## Installing and using the SCTK
-
+\Large
 ```{r, eval=F}
 install.packages("devtools")
 devtools::install_github("wevanjohnson/singleCellTK")
@@ -51,6 +51,7 @@ singleCellTK()
 
 
 ## Load Packages for RNA-Seq
+\Large
 We will be using the following packages for our RNA-seq lecture:
 ```{r, warning=FALSE, message=FALSE}
 library(tidyverse) ## tools for data wranging
@@ -102,13 +103,14 @@ library(umap) ## dimenstion reduction and plotting data
 ## Illumina Sequencing Workflow
 
 \center
-![](rna_seq/figs/illumina.png){height=85%}
+![](rna_seq/figs/illumina.png){height=60%}
 
 ## Sequencing Data Formats {.tabset}
-
+\Large
 Genome sequcencing data is often stored in one of two formats, FASTA and FASTQ text files. For example a FASTA files looks like the following: 
 
-![](rna_seq/figs/fasta.png)
+\center
+![](rna_seq/figs/fasta.png){height=80%}
 
 ## FASTQ Files
 We can also store confidence or quality scores using a FASTQ format: 
@@ -120,6 +122,7 @@ In order to translate FASTQ quality scores:
 ![](rna_seq/figs/encoding1.png)
 
 ## FASTQ Probability
+\Large
 And now converting to confidence probabilities: 
 
 ![](rna_seq/figs/encoding2.png)
@@ -144,18 +147,19 @@ rna_seq/FastQC/./fastqc \
 ```
 
 ## FastQC Score Distribution
-![](rna_seq/figs/fastqcscore.png){width=49%}
-![](rna_seq/figs/fastqcscoredist.png){width=49%}
+![](rna_seq/figs/fastqcscore.png){width=40%}
+![](rna_seq/figs/fastqcscoredist.png){width=40%}
 
 
 ## FastQC Base and N Distribution
-![](rna_seq/figs/fastqcbase.png){width=49%}
-![](rna_seq/figs/fastqcn.png){width=49%}
+![](rna_seq/figs/fastqcbase.png){width=40%}
+![](rna_seq/figs/fastqcn.png){width=40%}
 
 ## Alignment to the Reference Genome
 **Goal**: Find the genomic Location of origin for the sequencing read. Software: `Bowtie2`, `TopHat`, `STAR`, `Subread/Rsubread`, many others!
 
-![](rna_seq/figs/align1.png)
+\center
+![](rna_seq/figs/align1.png){height=60%}
 
 ### Using Rsubread to do Alignment
 
@@ -174,7 +178,7 @@ Abraham Lincoln: "Give me six hours to chop down a tree and I will spend the fir
 
 ## Indexing your genome
 
-\large 
+\Large 
 Note that you will rarely do this for human alignment. You will usually download an existing index given to you by others who have already done this work. You will do this often if you are aligning microbial reads, e.g. MTB or some other organism for which others have not already made your index for you.
 
 \normalsize
@@ -183,12 +187,14 @@ buildindex(basename="rna_seq/genome/ucsc.hg19.chr1_120-150M",
  reference="rna_seq/genome/ucsc.hg19.chr1_120-150M.fasta.gz")
 ```
 
-\large
+\Large
 Took me ~0.2 minutes!
 
 ## Aligning your reads:  
+\Large
 Note that this outputs results in a .bam file and not a .sam file
 
+\normalsize
 ```{r, eval=F, include=F}
 align(index="rna_seq/genome/ucsc.hg19.chr1_120-150M",readfile1="rna_seq/reads/R01_10_short6M.fq.gz",output_file="rna_seq/alignments/R01_10_short.bam", nthreads=4)
 ```
@@ -216,6 +222,7 @@ Note that Rsubread outputs a .bam file (bam = binary alignment map) and not a .s
 ![](rna_seq/figs/sambam.png)
 
 ## Aligned Sequencing Data Formats (SAM and BAM)
+\Large
 To convert .sam to .bam or vice versa, a package called Rsamtools. Using Rsamtools, you can convert bam to sam as follows:
 
 ```{r, eval=F}
@@ -242,7 +249,7 @@ Now we can count reads hitting genes. Approaches/software:
 
 ## Feature counts
 \center
-![](rna_seq/figs/featurecounts.png){height=85%}
+![](rna_seq/figs/featurecounts.png){height=60%}
 
 ## Feature counts
 
@@ -272,13 +279,15 @@ Use the Single Cell Toolkit (SCTK) to analyze your RNA-seq data!
 * R/Bioconductor package
 
 ## SCTK
+\center
 ![](rna_seq/figs/sctk1.png)
 
 ## SCTK
+\center
 ![](rna_seq/figs/sctk2.png)
 
 ## Installing and using the SCTK
-
+\Large
 ```{r, eval=F}
 install.packages("devtools")
 devtools::install_github("wevanjohnson/singleCellTK")
@@ -305,7 +314,7 @@ There are advanced R data structures, __S3__ and __S4__ class objects, that can 
 
 ## Data Structures
 \center
-![](rna_seq/figs/summarizedexperiment.png){height=85%}
+![](rna_seq/figs/summarizedexperiment.png){height=70%}
 
 
 ## Normalization
@@ -330,7 +339,7 @@ Alignment and feature counting result in discrete count data (i.e. the number of
 
 ## Problem of overdispersion: 
 \center
-![](rna_seq/figs/overdisperse.png){height=90%}
+![](rna_seq/figs/overdisperse.png){height=70%}
 
 
 ## Batch effects 
@@ -355,7 +364,9 @@ Microarray data were collected at baseline (0 h, just before transcription inhib
 ![](rna_seq/figs/batch1.png)
 
 ## Batch Effect Example #2: Control Gene Expression
-![Figure 15](rna_seq/figs/batch2.png){height=90%}
+\center
+![](rna_seq/figs/batch2.png){height=70%}
+
 
 ## Batch Effect Example #3: Proteomic markers
 **Proteomic markers to predict endometriosis (39 total)**:
@@ -368,12 +379,21 @@ Single peptide predictors of batch (AUC): 0.99, 0.94, 0.91, 0.86, 0.86, 0.84, 0.
 Predict batch better than disease!
 
 ## ComBat Batch Adjustment
-![](rna_seq/figs/batchmodel.png)
+\Large
+Consider the following model: $$Y_{ijg}=\alpha_g+X\beta_g+\gamma_{ig}+\delta_{ig}\epsilon_{ijg}$$  where:
+\begin{itemize}
+\item $\alpha_g$ is the overall gene expression
+\item $X$ is a design matrix 
+\item  $\beta_g$ contains the regression coefficients 
+\item  The error terms $\epsilon_{ijg}\sim N(0, \sigma_g^2)$
+\item $\gamma_{ig}$ and $\delta_{ig}$ are additive and multiplicative batch effects
+\end{itemize}
 
 ## ComBat Batch Adjustment
 ![](rna_seq/figs/batchadjust.png)
 
 ## BatchQC Example
+\Large
 We can use BatchQC to evaluate and correct for batch effects:
 ```{r, eval=F}
 if (!require("BiocManager", quietly = TRUE))
@@ -386,7 +406,7 @@ BatchQC()
 
 
 ## Visualization and Dimension reduction
-
+\Large
 Using an example dataset from: [Verma, et al., 2018](https://bmcinfectdis.biomedcentral.com/articles/10.1186/s12879-018-3127-4)
 ```{r}
 ## read in data
@@ -412,7 +432,6 @@ assays(se_hivtb)
 ```
 
 ## Principal Components Analysis (PCA)
-
 ```{r, eval=F}
 set.seed(1)
 pca_out <- prcomp(t(assay(se_hivtb,"log_counts_cpm")))
@@ -430,7 +449,7 @@ plot(g)
 
 ## Principal Components Analysis (PCA)
 
-```{r, echo=F, fig.height=4, fig.align='center'}
+```{r, echo=F, out.height='70%', fig.align='center'}
 set.seed(1)
 pca_out <- prcomp(t(assay(se_hivtb,"log_counts_cpm")))
   
@@ -471,7 +490,7 @@ plot(g)
 
 ## Uniform Manifold Approximation and Projection (UMAP)
 
-```{r, echo=F,fig.height=4, fig.align='center'}
+```{r, echo=F,out.height='70%', fig.align='center'}
 set.seed(1)
 umap_out <- umap(t(assay(se_hivtb,"log_counts_cpm")))
 
@@ -488,8 +507,8 @@ plot(g)
 
 
 ## Differential Expression {.tabset}
-
-![](rna_seq/figs/difex.png)
+\center
+![](rna_seq/figs/difex.png){height=70%}
 
 ## EdgeR Example
 Implements statistical methods for DE analysis based on the negative binomial model:
@@ -512,7 +531,7 @@ dge<-estimateDisp(counts,design)
 In negative binomial models, each gene is given a dispersion parameter.  Dispersions control the variances of the gene counts and underestimation will lead to false discovery and overestimation may lead to a lower rate of true discovery.
 
 ## EdgeR Example
-
+\large
 ```{r}
 # Neg Bin GLM with the dispersion estimates
 fit<-glmFit(counts,design, 
@@ -532,16 +551,12 @@ topTags(lrt)
 ```
 
 ## EdgeR Example
+\Large
 ```{r}
-# Perform quasi-likelihood F-tests
-## Replace the chisquare approximation to the likelihood 
-## ratio statistic with a quasi-likelihood F-test, 
-## more control of error rate
+## Use the a quasi-likelihood F-test 
 fit<-glmQLFit(counts, design, 
         dispersion=dge$tagwise.dispersion) 
-## use for small dataset, uncertainty in estimating 
-## control when number of replicates is small  
-## dispersion for each gene, more robust and reliable 
+## use for small datasets 
 qlf<-glmQLFTest(fit, coef=2)
 ```
 
@@ -607,7 +622,7 @@ Heatmap(mat,show_row_names=F, show_column_names = F,
 
 ## Heatmap of DEGs
 
-```{r, echo=F, out.height='80%',fig.align='center'}
+```{r, echo=F, out.height='70%',fig.align='center'}
 # Make a Heatmap of DEGs
 mat = as.matrix(assay(se_hivtb,"log_counts_cpm")
                 )[order(results(dds)[,6])[1:100],] 
@@ -640,6 +655,7 @@ dge <- calcNormFactors(dge) #TMM normalization
 ```
 
 ## Limma Example
+\Large
 ```{r}
 design<-model.matrix(~group)
 #voom transform to calculate weights to 
@@ -665,11 +681,12 @@ After finding DEGs, look for correlated genes/networks and enriched pathway sets
 * Qiagen Ingenuity Pathway Analysis (IPA)
 
 ## Pathway analysis
-![](rna_seq/figs/pathway1.png)
+\center
+![](rna_seq/figs/pathway1.png){height="70%"}
 
 ## Pathway analysis
 \center
-![](rna_seq/figs/pathway2.png){height=85%}
+![](rna_seq/figs/pathway2.png){height=70%}
 
 ## TBSignatureProfiler Analysis
 The TBSignatureProfiler was developed in the Johnson Lab in 2021 to profile new and existing TB gene expression signatures:
@@ -702,7 +719,7 @@ signatureHeatmap(ssgsea_res,
 ```
 
 ## Signature Heatmap:
-```{r, echo=F, fig.height=6.5}
+```{r, echo=F, out.height="80%", fig.align='center'}
 # Colors for gradient
 signatureHeatmap(ssgsea_res, 
         name = "Heatmap of Signatures (ssGSEA)", 
@@ -714,7 +731,7 @@ signatureHeatmap(ssgsea_res,
 ```
 
 ## Signature Boxplots
-```{r, warning=F, fig.height=5}
+```{r, warning=F, out.height="50%", fig.align='center'}
 signatureBoxplot(ssgsea_res, name="ssGSEA", 
           signatureColNames = names(TBsigs)[c(62,77)],
           annotationColName = c("Disease"))
