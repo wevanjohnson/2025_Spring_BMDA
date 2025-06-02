@@ -285,6 +285,22 @@ Low concordance of variant-calling pipelines (O'Rawe, _Genome Med_, 2013)
 ![](gwasFigs/discordance.png){height=50%}
 
 
+## BWA Revisted (OnDemand Amarel Desktop)
+
+\large
+```{bash, eval=F}
+# load bwa
+module load bwa
+
+# Index the genome:
+bwa index genomefile.fa 
+
+# Align the reads and include a `read group' header, e.g.: 
+bwa mem \
+ -R "@RG\tID:group1\tSM:sam1\tPL:illumina\tLB:lib1\tPU:unit1" \
+ genomefile.fa myfastqfile.fq > bwaalign.sam
+
+```
 
 ## SAMtools Example
 Multiple sample SNP calling:
@@ -293,9 +309,14 @@ Multiple sample SNP calling:
 ## Load samtools
 module load samtools
 
+# Convert to BAM, sort, and index:
+samtools view -bS myalignments.sam > myalignments.bam 
+samtools sort myalignments.bam -o myalignments.sorted.bam
+samtools index myalignments.sorted.bam 
+
 ## mpileup
 samtools mpileup -f genomefile.fa \ 
-  myalignments.sorted.bam > myalignments.vcf
+  myalignments.sorted.bam > myalignments.pileup
 ```
 
 ## GATK Example
@@ -306,7 +327,7 @@ samtools faidx chrX_5MB.fa
 
 module load gatk
 # make sequence dictionary
-gatk CreateSequenceDictionary -R chrX_5MB.fasta
+gatk CreateSequenceDictionary -R chrX_5MB.fa
 # make .vcf file!
 gatk HaplotypeCaller \
 	-R chrX_5MB.fa -I proband_short_bwa.sorted.bam \

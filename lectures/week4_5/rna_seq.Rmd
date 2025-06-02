@@ -514,7 +514,7 @@ Implements statistical methods for DE analysis based on the negative binomial mo
 
 ```{r}
 #Gene Filtering
-counts<-counts[which(rowSums(counts)>1),] 
+counts<-counts[which(rowSums(counts)>100),] 
 #Computes library size
 dge <- DGEList(counts=counts, group=group) 
 #TMM normalization
@@ -605,7 +605,7 @@ res[1:25,]
 ## Heatmap of DEGs
 ```{r, eval=F}
 # Make a Heatmap of DEGs
-mat = as.matrix(assay(se_hivtb,"log_counts_cpm")
+mat = as.matrix(assay(se_hivtb,"counts")
                 )[order(results(dds)[,6])[1:100],] 
                 # Using first 100 genes to simplify
 mat = t(scale(t(mat))) ## scale gene expression

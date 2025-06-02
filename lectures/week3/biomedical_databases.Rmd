@@ -404,7 +404,7 @@ Download via:
 module load sratoolkit
 
 ## Save accession to download
-acc = "SRR1528344"
+acc="SRR1528344"
 
 ## Download using fastq-dump 
 fastq-dump $acc
@@ -421,8 +421,8 @@ gzip $acc.fastq
 accs=( $( cat SRR_Acc_List.txt ) )
 for i in $(seq 0 ${#accs[@]}) 
 do 
-	fastq-dump ${a[i]};
-	gzip ${a[i]}*
+	fastq-dump ${accs[i]};
+	gzip ${accs[i]}*
 done
 ```
 
@@ -441,8 +441,8 @@ cd $HOME/tmp/
 accs=( $( cat SRR_Acc_List.txt ) )
 for i in $(seq 0 ${#accs[@]}) 
 do 
-	fastq-dump ${a[i]};
-	gzip ${a[i]}*
+	fastq-dump ${accs[i]};
+	gzip ${accs[i]}*
 done
 ```
 Save as a file and use `sbatch` to submit
