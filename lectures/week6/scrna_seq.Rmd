@@ -107,6 +107,11 @@ The vast majority of cells (10x-50x) in your brain are glia, not neurons
 \tiny
 Kadota, Kyuichi, et al. 2014. “Comprehensive Pathological Analyses in Lung Squamous Cell Carcinoma: Single Cell Invasion, Nuclear Diameter, and Tumor Budding Are Independent Prognostic Factors for Worse Outcomes.” Journal of Thoracic Oncology: Official Publication of the International Association for the Study of Lung Cancer 9 (8): 1126–39.
 
+## Tissues are Diverse: Molecular Profiling
+
+\center
+![](figs/fruit_pic_blog_2021_edit.png)
+
 ## The Forest: Tissue Homogenate
 \center
 ![](figs/homogenate.png){height=85%}
