@@ -2,6 +2,8 @@
 title: "Homework 2"
 date: Due June 11, 2025
 output: pdf_document
+editor_options: 
+  chunk_output_type: console
 ---
 
 Now its time to practice what we have learned in class and learn even more! For this homework project you will do a RNA-seq analysis of the TB/HIV dataset. 
@@ -12,15 +14,87 @@ Submit your completed assignment via the designated homework (Quiz) submission s
 
 ## RNA-sequencing analysis
 
-1. To access the data for Homework 2, you will have to download the data from the Sequence Read Archive (SRA) using the `sratoolkit`. There are 33 fastq files, with the SRR numbers are listed in the `homework2_srr.txt` file. 
-2. Align the reads to the human genome reference using your choice of the `Rsubread` or the `STAR` aligners. 
-3. Use the `featureCounts` function in the `Rsubread` package to generate a counts file for this dataset. 
-4. Generate a `SummarizedExperiment` object for your counts. The `colData` for these data are provided in the `homework2_metadata.txt` file.  
-5. Preprocess these data by removing `TB-HIV-ART` samples (should be two of them), removing any genes with 0 expression for all samples, and by generating a log counts per million assay. 
-6. (Extra credit) Create a batch corrected assay in your `SummarizedExperiment` using ComBat-Seq. You can use the `ComBat_Seq` function in the `sva` package, or simply do it in `BatchQC` and then extract the `SummarizedExperiment`. For this example, pretend that `disease_status` is the batch variable. Note that this will remove the disease status variability, so **don't** use this assay in the following analyses! This was merely a practice for cases where you have an actual batch variable.  
-7. Apply PCA and UMAP to your data and generate dimension reduction plots for the results. Color the TB-HIV to the HIV only samples in different colors. Note that you should be using the log CPM values for this analysis. 
-8. Use `DESeq2` to do a differential expression analysis (on the counts) comparing the TB-HIV to the HIV only samples. Provide the top 50 most differentially expressed genes.  
-9. Now conduct the same analysis using `limma` on the log CPM values. How do the `DESeq2` results compare to the `limma` results? 
-10. Give a heatmap plot of either the `DESeq2` or the `limma` results (top 50). Add a colorbar for disease status. 
-11. Conduct a pathway analysis of the top 50 genes usign a tools such as enrichR (through R or online). What are the top scoring pathways?
-12. (More extra credit) Conduct a TBSignatureProfiler analysis on these data -- including signature heatmaps, individual boxplots, and AUC boxplots. Interpret your findings.   
+\begin{enumerate}
+  \item  To access the data for Homework 2, you will have to download the data from the Sequence Read Archive (SRA) using the 'sratoolkit'. There are 33 fastq files, with the SRR numbers are listed in the 'homework2\_srr.txt' file. Which of the following is the correct usage of the 'fastq-dump' function in the 'sratoolkit'?
+  \begin{enumerate}
+    \item fastq-dump --compress gzip SRR12345678
+    \item fastq-dump SRR12345678 --gzip-compress
+    \item fastq-dump --gzip SRR12345678
+    \item fastq-dump SRR12345678 | gzip > SRR12345678.fastq.gz
+    \item fastq-dump --SRR SRR12345678 --gzip
+  \end{enumerate}
+
+  \item  Align the reads to the human genome reference using your choice of the `Rsubread` or the `STAR` aligners. Confirm whether or not you were able to successfully complete this step (on your honor)"
+   \begin{enumerate}
+    \item Yes
+    \item No
+  \end{enumerate}
+  
+  \item  Use the `featureCounts` function in the `Rsubread` package to generate a counts file for this dataset. Upload your feature counts .txt file here. 
+\end{enumerate}
+
+For the rest of the assignment, please use the feature counts provided by Dr. Johnson in the lecture materials: \href{https://github.com/wevanjohnson/2025_Spring_BMDA/raw/refs/heads/main/lectures/week4_5/rna_seq/downstream_analysis/features_combined.txt}{features\_combined.txt (link)} 
+
+\begin{enumerate}
+  \setcounter{enumi}{3}
+  \item  Generate a `SummarizedExperiment` object for your counts. The `colData` for these data are provided in the `homework2\_metadata.txt` file. What function is used to create a SummarizedExperiment object?
+  \begin{enumerate}
+    \item makeSummarizedExp(as.matrix(counts), metadata)
+    \item SummarizedExperiment(assays = list(counts = as.matrix(counts)), colData = metadata)
+    \item seObject(counts, metadata)
+    \item summarizeData(data = counts, metadata = metadata)
+    \item buildExperiment(assay = as.matrix(counts), metadata = metadata)
+  \end{enumerate}
+
+  \item  Preprocess these data by removing `TB-HIV-ART` samples (should be two of them), removing any genes with zero expression for all samples, and by generating a log counts per million assay. How may genes were removed with the zero expression filter? 
+ \begin{enumerate}
+    \item 48
+    \item 2,204
+    \item 9,700
+    \item 17,385
+  \end{enumerate}
+
+  \item  (Extra credit) Create a batch corrected assay in your `SummarizedExperiment` using ComBat-Seq. You can use the `ComBat\_Seq` function in the `sva` package, or simply do it in `BatchQC` and then extract the `SummarizedExperiment`. For this example, pretend that `disease\_status` is the batch variable. Note that this will remove the disease status variability, so **don't** use this assay in the following analyses! This was merely a practice for cases where you have an actual batch variable. What command/syntax would work to apply ComBat-Seq? 
+  \begin{enumerate}
+    \item ComBat\_seq(counts = assay(se), batch = disease\_status)
+    \item BatchFix(se, "counts", batch = "disease\_status")
+    \item ComBat\_seq(as.matrix(assay(se, "counts")), batch = se\$disease\_status)
+    \item combatCorrect(se\$counts, batch = se\$disease\_status)
+    \item ComBat(se, "counts", batch = "disease\_status")
+  \end{enumerate}
+
+  \item  Apply PCA and UMAP to your data and generate dimension reduction plots for the results. Color the TB-HIV to the HIV only samples in different colors. Note that you should be using the log CPM values for this analysis. Please attach your UMAP plot here. 
+
+  \item  Use `DESeq2` to do a differential expression analysis (on the counts) comparing the TB-HIV to the HIV only samples. What is the twenty second gene on the  differentially expressed gene list?  
+  \begin{enumerate}
+    \item IGF2BP3
+    \item AIM2 
+    \item IL1R2
+    \item RAB20
+    \item FCGR1C
+  \end{enumerate}
+
+ \item  Now conduct the same analysis using `limma` on the log CPM values. How do the `DESeq2` results compare to the `limma` results? What is the seventh gene on the  differentially expressed gene list?  
+  \begin{enumerate}
+    \item IGF2BP3
+    \item AIM2 
+    \item IL1R2
+    \item RAB20
+    \item FCGR1C
+  \end{enumerate}
+
+  \item  Give a heatmap plot of either the `DESeq2` or the `limma` results (top 50). Add a colorbar for disease status. Upload your plot here. 
+ 
+  \item  Conduct a pathway analysis of the top 50 Limma genes using enrichR (through R or online). Use the "Reactome\_Pathways\_2024" database. What is the top scoring pathway?
+   \begin{enumerate}
+    \item "Interferon Gamma Signaling"  
+    \item "Fatty Acid Metabolism"
+    \item "Cytokine Signaling in Immune System"
+    \item "RAB Geranylgeranylation"
+  \end{enumerate}
+
+  \item  (More extra credit) Conduct a TBSignatureProfiler analysis on these data -- including signature heatmaps, individual boxplots, and AUC boxplots. Interpret your findings. Upload one of your TBSignatureProfiler plots here.   
+
+
+
+\end{enumerate}

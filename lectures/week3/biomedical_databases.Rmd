@@ -459,9 +459,11 @@ Save as a file and use `sbatch` to submit
 #SBATCH --mem=1G
 #SBATCH --time=00:20:00
 
+mkdir -p /scratch/$USER/asthma_data
+cd /scratch/$USER/asthma_data
+
 module load sratoolkit
-cd /scratch/$USER
-  
+
 accs=( $( cat SRR_Acc_List.txt ) )
 acc_number=${accs[$SLURM_ARRAY_TASK_ID]}
 
