@@ -24,7 +24,7 @@ Submit your completed assignment via the designated homework (Quiz) submission s
     \item fastq-dump --SRR SRR12345678 --gzip
   \end{enumerate}
 
-  \item  Align the reads to the human genome reference using your choice of the `Rsubread` or the `STAR` aligners. Confirm whether or not you were able to successfully complete this step (on your honor)"
+  \item  Align the reads to the human genome reference using your choice of the `Rsubread` or the `STAR` aligners. Confirm whether or not you were able to successfully complete this step (on your honor). 
    \begin{enumerate}
     \item Yes
     \item No
